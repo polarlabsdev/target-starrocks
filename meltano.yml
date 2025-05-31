@@ -1,0 +1,43 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: "target-starrocks"
+default_environment: test
+environments:
+- name: test
+plugins:
+  extractors:
+  - name: tap-smoke-test
+    variant: meltano
+    pip_url: git+https://github.com/meltano/tap-smoke-test.git
+    config:
+      streams:
+      - stream_name: animals
+        input_filename: https://raw.githubusercontent.com/meltano/tap-smoke-test/main/demo-data/animals-data.jsonl
+
+  loaders:
+  - name: "target-starrocks"
+    namespace: "target_starrocks"
+    pip_url: -e .
+    capabilities:
+    - about
+    - stream-maps
+    - schema-flattening
+    settings:
+    - name: host
+      value: ""
+    - name: port
+      kind: integer
+      value: 9030
+    - name: user
+      value: ""
+    - name: password
+      kind: password
+      sensitive: true
+      value: ""
+    - name: catalog
+      value: ""
+    - name: warehouse
+      value: ""
+
+    settings_group_validation:
+    - [user, password]

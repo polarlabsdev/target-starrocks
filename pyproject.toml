@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "target-starrocks"
+version = "0.1.0"
+description = "Singer target for Starrocks, built with the Meltano Singer SDK."
+authors = ["Polar Labs <hello@polarlabs.ca>"]
+readme = "README.md"
+keywords = [
+	"ELT",
+	"Starrocks",
+]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "<3.14,>=3.9"
+meltano = "^3.7.6"
+singer-sdk = "~=0.46.4"
+starrocks = "^1.2.2"
+
+[tool.poetry.scripts]
+target-starrocks = 'target_starrocks.target:TargetStarrocks.cli'
+
+[tool.poetry.group.dev.dependencies]
+cookiecutter = "^2.6.0"
+pytest = ">=8"
+pytest-github-actions-annotate-failures = ">=0.3"
+singer-sdk = { version = "~=0.46.4", extras = ["testing"] }
+ruff = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+warn_unused_configs = true
+
+[tool.ruff.lint]
+ignore = [
+    "COM812",  # missing-trailing-comma
+]
+select = ["ALL"]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
