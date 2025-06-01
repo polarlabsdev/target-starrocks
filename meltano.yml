@@ -13,15 +13,13 @@ plugins:
       streams:
       - stream_name: animals
         input_filename: https://raw.githubusercontent.com/meltano/tap-smoke-test/main/demo-data/animals-data.jsonl
-
+        
   loaders:
   - name: "target-starrocks"
     namespace: "target_starrocks"
     pip_url: -e .
     capabilities:
     - about
-    - stream-maps
-    - schema-flattening
     settings:
     - name: host
       value: ""

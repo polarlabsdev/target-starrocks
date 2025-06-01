@@ -6,7 +6,9 @@ Build with the [Meltano Target SDK](https://sdk.meltano.com).
 
 **❗ Important Note: This project is currently a Work In Progress (WIP) and relies heavily on the default `SQLSink` and `SQLTarget` implementations from the Meltano SDK. Functionality may be limited.**
 
-**❗ Known Issue: There is a known bug with the `starrocks` Python connector that causes a `ProgrammingError` when attempting to create Iceberg tables. You must create your tables in StarRocks manually before running this target. See [GitHub Issue #59463](https://github.com/StarRocks/starrocks/issues/59463) for more details.**
+**❗ This target includes workarounds for certain limitations in the `starrocks` Python connector, specifically concerning Iceberg table creation and VARCHAR length requirements. While these workarounds aim to provide a smoother experience, it's important to be aware of the underlying issues with the connector. For more details on the original connector issue, see [GitHub Issue #59463](https://github.com/StarRocks/starrocks/issues/59463).**
+
+**❗ The Meltano SDK generated Github Actions but we have not yet validated them and they remain commented out for the time being.**
 
 This target has been developed with the assumption that StarRocks is being used as a query engine for Apache Iceberg, leveraging a REST catalog. While this is the primary design consideration, the project is open to contributions. If you have a different use case or improvements, feel free to fork the repository and submit a pull request!
 
@@ -16,9 +18,11 @@ This target is intended to be used with [Meltano](https://meltano.com/).
 
 Since `target-starrocks` is not yet published on PyPI, you need to install it directly from its Git repository.
 
-1.  **Ensure Meltano is installed.** If you haven't already, [install Meltano](https://docs.meltano.com/getting-started/installation).
+1.  **Ensure the Starrocks python connector is installed in your project `poetry add starrocks`**
 
-2.  **Add the target to your Meltano project:**
+2.  **Ensure Meltano is installed.** If you haven't already, [install Meltano](https://docs.meltano.com/getting-started/installation).
+
+3.  **Add the target to your Meltano project:**
     Open your `meltano.yml` file and add the following under the `plugins.loaders` section (or `plugins.targets` if you are on an older Meltano version). Adjust the `pip_url` to point to the desired branch or commit if necessary.
 
     ```yaml
@@ -48,7 +52,7 @@ Since `target-starrocks` is not yet published on PyPI, you need to install it di
               value: "your_warehouse_or_database_name"
     ```
 
-3.  **Install the plugin:**
+4.  **Install the plugin:**
     Run the following command in your Meltano project directory:
     ```bash
     meltano install loader target-starrocks
