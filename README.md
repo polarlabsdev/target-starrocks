@@ -8,6 +8,8 @@ Build with the [Meltano Target SDK](https://sdk.meltano.com).
 
 **❗ This target includes workarounds for certain limitations in the `starrocks` Python connector, specifically concerning Iceberg table creation and VARCHAR length requirements. While these workarounds aim to provide a smoother experience, it's important to be aware of the underlying issues with the connector. For more details on the original connector issue, see [GitHub Issue #59463](https://github.com/StarRocks/starrocks/issues/59463).**
 
+**❗ The Meltano SDK generated Github Actions but we have not yet validated them and they remain commented out for the time being.**
+
 This target has been developed with the assumption that StarRocks is being used as a query engine for Apache Iceberg, leveraging a REST catalog. While this is the primary design consideration, the project is open to contributions. If you have a different use case or improvements, feel free to fork the repository and submit a pull request!
 
 ## Installation
